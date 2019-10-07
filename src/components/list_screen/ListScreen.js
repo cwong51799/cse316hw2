@@ -40,7 +40,11 @@ export class ListScreen extends Component {
                             id="list_owner_textfield" />
                     </div>
                 </div>
-                <ListItemsTable todoList={this.props.todoList} />
+                <ListItemsTable todoList={this.props.todoList}
+                                moveUp = {this.props.moveUp}
+                                moveDown = {this.props.moveDown}
+                                deleteItem = {this.props.deleteItem}
+                                />
             </div>
         )
     }

@@ -28,6 +28,65 @@ class App extends Component {
     console.log("currentList: " + this.state.currentList);
     console.log("currentScreen: " + this.state.currentScreen);
   }
+  // These methods will assume that the button is unclickable
+  // if the operation is invalid (like it can't move up).
+ moveUp = (key) =>{
+    const todoListItems = this.state.currentList.items;
+    if (key === 0){ // if it's the first element
+      return;
+    }
+    // Swap the item up.
+    const swapHolder = todoListItems[key];
+    todoListItems[key] = todoListItems[key-1];
+    todoListItems[key-1] = swapHolder;
+    this.refreshKeys();
+    /* Swap keys too
+    const keyHolder = todoListItems[key].key;
+    todoListItems[key].key = todoListItems[key-1].key;
+    todoListItems[key-1].key = keyHolder;*/
+    this.setState(()=>{  // reload the state by refreshing the currentList
+      console.log("setting state");
+      return {currentList: this.state.currentList};
+    }); // reload the state
+  }
+  moveDown = (key) =>{
+    const todoListItems = this.state.currentList.items;
+    if (key === todoListItems.length-1){ // if it's the last element
+      return;
+    }
+    // Swap the item up.
+    const swapHolder = todoListItems[key];
+    todoListItems[key] = todoListItems[key+1];
+    todoListItems[key+1] = swapHolder;
+    this.refreshKeys();
+    /* Swap keys too
+    const keyHolder = todoListItems[key].key;
+    todoListItems[key].key = todoListItems[key+1].key;
+    todoListItems[key+1].key = keyHolder;*/
+    this.setState(()=>{  // reload the state by refreshing the currentList
+      console.log("setting state");
+      return {currentList: this.state.currentList};
+    }); // reload the state
+  }
+  deleteItem = (key) =>{
+    const todoListItems = this.state.currentList.items;
+    todoListItems.splice(key,1); // remove the element
+    this.refreshKeys();
+    this.setState(()=>{  // reload the state by refreshing the currentList
+      console.log("setting state");
+      return {currentList: this.state.currentList};
+    }); // reload the state?
+  }
+
+  refreshKeys(){
+    const todoListItems = this.state.currentList.items;
+    for (var i=0;i<todoListItems.length;i++){
+      todoListItems[i].key = i;
+    }
+  }
+
+
+
 
   render() {
     switch(this.state.currentScreen) {
@@ -38,7 +97,11 @@ class App extends Component {
       case AppScreen.LIST_SCREEN:            
         return <ListScreen
           goHome={this.goHome.bind(this)}
-          todoList={this.state.currentList} />;
+          todoList={this.state.currentList}
+          moveUp = {this.moveUp}
+          moveDown = {this.moveDown}
+          deleteItem = {this.deleteItem}
+          />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen />;
       default:

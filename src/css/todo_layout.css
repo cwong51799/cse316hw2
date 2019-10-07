@@ -109,6 +109,45 @@ body {
   display: grid;
   grid-template-columns: 33% 33% 33%;
 }
+
+
+button:disabled{
+  background-color: gray;
+}
+.list_item_card_upButton{
+  background-image: url(../images/icons/MoveUp.png);
+  text-align: center;
+  border-radius: 5px;
+  grid-column: 1;
+  width: 85%;
+  margin: 1%;
+  background-color: green;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.list_item_card_downButton{
+  background-image: url(../images/icons/MoveDown.png);
+  text-align: center;
+  border-radius: 5px;
+  grid-column: 2;
+  width: 85%;
+  margin: 1%;
+  background-color: green;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.list_item_card_deleteButton{
+  background-image: url(../images/icons/RemoveItem.png);
+  text-align: center;
+  border-radius: 5px;
+  grid-column: 3;
+  width: 85%;
+  margin: 1%;
+  background-color: green;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .list_item_card_button {
   text-align: center;
   border-radius: 5px;
