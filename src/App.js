@@ -28,8 +28,11 @@ class App extends Component {
     console.log("currentList: " + this.state.currentList);
     console.log("currentScreen: " + this.state.currentScreen);
   }
+
+
   // These methods will assume that the button is unclickable
   // if the operation is invalid (like it can't move up).
+  // 10/7/19 1:12AM, can maybe put these further into the project with states of their own.
  moveUp = (key) =>{
     const todoListItems = this.state.currentList.items;
     if (key === 0){ // if it's the first element
@@ -78,13 +81,13 @@ class App extends Component {
     }); // reload the state?
   }
 
+  // Sets the keys of each item to it's position in the array
   refreshKeys(){
     const todoListItems = this.state.currentList.items;
     for (var i=0;i<todoListItems.length;i++){
       todoListItems[i].key = i;
     }
   }
-
 
 
 
@@ -101,6 +104,7 @@ class App extends Component {
           moveUp = {this.moveUp}
           moveDown = {this.moveDown}
           deleteItem = {this.deleteItem}
+          loadList = {this.loadList}
           />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen />;
