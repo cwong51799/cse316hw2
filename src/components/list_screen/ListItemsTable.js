@@ -24,6 +24,8 @@ export class ListItemsTable extends Component {
                             />
                     ))
                 }
+                <div className="list_item_add_card">+</div>
+
             </div>
         )
     }
