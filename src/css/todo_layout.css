@@ -199,3 +199,73 @@ button:disabled{
   display: flex;
   justify-content: space-between;
 }
+
+#delete_confirmation{
+  background-color: beige;
+  display: grid;
+  position: fixed;
+  top: 30%;
+  left: 25%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.7s;
+  animation-name: slideIn;
+  animation-duration: 0.7s;
+  z-index: 1;
+  position: fixed;  
+}
+
+
+#deleteTitle, #msg1, #delete_options, #msg2{
+  margin: auto;
+}
+
+.buttons {
+	-moz-box-shadow: 0px 1px 0px 0px #1c1b18;
+	-webkit-box-shadow: 0px 1px 0px 0px #1c1b18;
+	box-shadow: 0px 1px 0px 0px #1c1b18;
+	background:-moz-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:-webkit-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:-o-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:-ms-linear-gradient(top, #eae0c2 5%, #ccc2a6 100%);
+	background:linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#eae0c2', endColorstr='#ccc2a6',GradientType=0);
+	background-color:#eae0c2;
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+	border-radius:15px;
+	border:2px solid #333029;
+	display:inline-block;
+	cursor:pointer;
+	color:#505739;
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:12px 16px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.buttons:hover {
+	background:-moz-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:-webkit-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:-o-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:-ms-linear-gradient(top, #ccc2a6 5%, #eae0c2 100%);
+	background:linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ccc2a6', endColorstr='#eae0c2',GradientType=0);
+	background-color:#ccc2a6;
+}
+.buttons:active {
+	position:relative;
+	top:1px;
+}
+
+
+/* animations */
+@-webkit-keyframes slideIn{
+  from { left: -50%;}
+  to {left: 40%;}
+}
+
+@keyframes slideIn{
+  from { left: -50%;}
+  to {left: 40%}
+}

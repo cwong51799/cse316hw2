@@ -35,9 +35,19 @@ class App extends Component {
     console.log("currentList: " + this.state.currentList);
     console.log("currentScreen: " + this.state.currentScreen);
   }
-
-
-
+  deleteList = (key) => {
+    const todoLists = this.state.todoLists;
+    todoLists.splice(key,1); // remove the element
+    this.refreshListKeys();
+    this.goHome();
+  }
+  // Sets the key of the list relative to its position on the array. Useful for when a list is deleted.
+  refreshListKeys(){
+    const todoList = this.state.todoLists;
+    for (var i=0;i<todoList.length;i++){
+        todoList[i].key = i;
+    }
+  }
 /// What does the binding do?
   render() {
     switch(this.state.currentScreen) {
@@ -50,6 +60,7 @@ class App extends Component {
           goHome={this.goHome.bind(this)}
           todoList={this.state.currentList}
           loadList = {this.loadList}
+          deleteList = {this.deleteList}
           goItemScreen = {this.goItemScreen.bind(this)}
           />;
       case AppScreen.ITEM_SCREEN:

@@ -82,8 +82,8 @@ export class ItemScreen extends Component {
                 <div className="promptInputDiv"><span className="item_prompt" id="item_completed_prompt" >Completed:</span>
                 <input className= "item_input" type = "checkbox" id="item_completed_checkbox" onChange = {(e)=>this.handleCompletedChange()} checked={this.state.newCompleted || false}/></div>
                 <div id="submitOrCancelDiv">
-                    <button className= "item_form_submit_button" onClick = {(e)=>this.submitItem()}>Submit</button>
-                    <button className= "item_form_cancel_button" onClick = {(e)=>this.props.loadList(this.props.todoList)}>Cancel</button>
+                    <button className= "buttons" onClick = {(e)=>this.submitItem()}>Submit</button>
+                    <button className= "buttons" onClick = {(e)=>this.props.loadList(this.props.todoList)}>Cancel</button>
                     </div>
             </div>// make these buttons nicer
         )

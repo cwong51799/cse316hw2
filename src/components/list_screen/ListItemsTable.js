@@ -7,7 +7,6 @@ export class ListItemsTable extends Component {
         this.state = {
             todoList: this.props.todoList
         };
-        // Refresh the keys upon loading, this is needed for when a new element
     }
     sortByTask(){
         this.props.todoList.items.sort(function(item1,item2){
