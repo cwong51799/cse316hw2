@@ -71,6 +71,10 @@ body {
 #list_heading:hover {
   color: var(--swatch-accent);
 }
+#headerContainer{
+  background-color: green;
+}
+
 #list_details_container {}
 #list_details_name_container {}
 #list_name_prompt, #list_owner_prompt {

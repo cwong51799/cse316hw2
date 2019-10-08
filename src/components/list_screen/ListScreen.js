@@ -13,8 +13,7 @@ export class ListScreen extends Component {
             name: this.props.todoList.name,
             todoList: this.props.todoList
         };
-        // Refresh the keys upon loading, this is needed for when a new element is added
-        this.refreshKeys();
+        // Refresh the keys upon loading, this is needed for when a new element
     }
     handleOwnerChange(event){
         this.props.todoList.owner = event.target.value;
@@ -51,7 +50,6 @@ export class ListScreen extends Component {
         const swapHolder = todoListItems[key];
         todoListItems[key] = todoListItems[key-1];
         todoListItems[key-1] = swapHolder;
-        this.refreshKeys();
         this.setState(()=>{  // reload the state by refreshing the currentList
         console.log("setting state");
         return {todoList: this.props.todoList};
@@ -66,7 +64,6 @@ export class ListScreen extends Component {
         const swapHolder = todoListItems[key];
         todoListItems[key] = todoListItems[key+1];
         todoListItems[key+1] = swapHolder;
-        this.refreshKeys();
         this.setState(()=>{  // reload the state by refreshing the currentList
         console.log("setting state");
         return {todoList: this.props.todoList};
@@ -75,21 +72,21 @@ export class ListScreen extends Component {
     deleteItem = (key) =>{
         const todoListItems = this.props.todoList.items;
         todoListItems.splice(key,1); // remove the element
-        this.refreshKeys();
         this.setState(()=>{  // reload the state by refreshing the currentList
         console.log("setting state");
         return {todoList: this.props.todoList};
         }); // reload the state?
     }
     // Sets the keys of each item to it's position in the array
-    refreshKeys(){
-        const todoListItems = this.state.todoList.items;
+    refreshKeys(todoList){
+        const todoListItems = todoList.items;
         for (var i=0;i<todoListItems.length;i++){
         todoListItems[i].key = i;
         }
     }
 
     render() {
+        this.refreshKeys(this.props.todoList);
         console.log("LIST SCREEN RENDER METHOD CALLED");
         return (
             <div id="todo_list">
@@ -120,6 +117,7 @@ export class ListScreen extends Component {
                                 moveDown = {this.moveDown}
                                 deleteItem = {this.deleteItem}
                                 goItemScreen = {this.props.goItemScreen}
+                                refreshKeys = {this.refreshKeys}
                                 />
             </div>
         )

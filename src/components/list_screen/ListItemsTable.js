@@ -2,14 +2,64 @@ import React, { Component } from 'react'
 import ListItemCard from './ListItemCard'
 
 export class ListItemsTable extends Component {
-
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            todoList: this.props.todoList
+        };
+        // Refresh the keys upon loading, this is needed for when a new element
+    }
+    sortByTask(){
+        this.props.todoList.items.sort(function(item1,item2){
+            if (item1.description > item2.description){
+                return 1;
+            }
+            else if(item1.description < item2.description){
+                return -1;
+            }
+            else return 0;
+        })
+        this.setState({
+            todoList: this.props.todoList
+        });
+    }
+    sortByDueDate(){
+        this.props.todoList.items.sort(function(item1,item2){
+            if (item1.due_date > item2.due_date){
+                return 1;
+            }
+            else if(item1.due_date < item2.due_date){
+                return -1;
+            }
+            else return 0;
+        })
+        this.setState({
+            todoList: this.props.todoList
+        });
+    }
+    sortByStatus(){
+        this.props.todoList.items.sort(function(item1,item2){
+            if (item1.completed < item2.completed){
+                return 1;
+            }
+            else if(item1.completed > item2.completed){
+                return -1;
+            }
+            else return 0;
+        })
+        this.setState({
+            todoList: this.props.todoList
+        });
+    }
     render() {
+        this.props.refreshKeys(this.props.todoList);
         return (
             <div id="list_items_container">
-                <div className="list_item_task_header">Task</div>
-                <div className="list_item_due_date_header">Due Date</div>
-                <div className="list_item_status_header">Status</div>
+                <div className= "list_item_header_card">
+                    <div className="list_item_task_header" onClick = {(e) => this.sortByTask()}>Task</div>
+                    <div className="list_item_due_date_header" onClick = {(e) => this.sortByDueDate()}>Due Date</div>
+                    <div className="list_item_status_header" onClick = {(e) => this.sortByStatus()}>Status</div>
+                </div>
                 {
                     this.props.todoList.items.map((todoItem)=>(
                         <ListItemCard 

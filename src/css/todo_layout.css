@@ -84,8 +84,8 @@ body {
 }
 .list_item_task_header, .list_item_due_date_header, .list_item_status_header {
   position: absolute;
-  top: 5%;
 }
+
 .list_item_card_assigned_to, .list_item_card_due_date, 
 .list_item_card_completed, .list_item_card_not_completed {
   position: absolute;
@@ -165,7 +165,7 @@ button:disabled{
   max-width:500px;
   align-content: center;
   padding: 30px;
-  row-gap: 4ch;
+  row-gap: 5ch;
 }
 #item_description_prompt {}
 #item_description_textfield {}
