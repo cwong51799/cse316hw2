@@ -152,8 +152,13 @@ body {
 }
 
 /* ITEM SCREEN CONTROLS */
-#item_heading {}
-#item_form_container {}
+#item_heading {
+  font-size: 25px;
+}
+#item_form_container {
+  background-color: #E6E6E6;
+  padding: 40px;
+}
 #item_description_prompt {}
 #item_description_textfield {}
 #item_assigned_to_prompt {}
@@ -166,6 +171,12 @@ body {
 #item_form_cancel_button {}
 
 /* ITEM SCREEN CLASSES */
+
+
+
+.item_screen_div{
+  background-color: #E1E4CB;
+}
 .item_prompt {
   font-weight: bold;
 }

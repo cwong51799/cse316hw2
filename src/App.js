@@ -14,7 +14,8 @@ class App extends Component {
   state = {
     currentScreen: AppScreen.HOME_SCREEN,
     todoLists: testTodoListData.todoLists,
-    currentList: null
+    currentList: null,
+    currentItem: null
   }
 
   goHome = () => {
@@ -22,6 +23,12 @@ class App extends Component {
     this.setState({currentList: null});
   }
 
+  // Move to item screen, don't replace the current list.
+  goItemScreen = (item) => {
+    this.setState({
+      currentItem: item,
+      currentScreen: AppScreen.ITEM_SCREEN})
+  }
   loadList = (todoListToLoad) => {
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
     this.setState({currentList: todoListToLoad});
@@ -31,7 +38,7 @@ class App extends Component {
 
 
 
-
+/// What does the binding do?
   render() {
     switch(this.state.currentScreen) {
       case AppScreen.HOME_SCREEN:
@@ -43,9 +50,14 @@ class App extends Component {
           goHome={this.goHome.bind(this)}
           todoList={this.state.currentList}
           loadList = {this.loadList}
+          goItemScreen = {this.goItemScreen.bind(this)}
           />;
       case AppScreen.ITEM_SCREEN:
-        return <ItemScreen />;
+        return <ItemScreen 
+          loadList = {this.loadList}
+          todoList = {this.state.currentList}
+          todoItem = {this.state.currentItem}
+          />;
       default:
         return <div>ERROR</div>;
     }

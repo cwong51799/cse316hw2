@@ -13,6 +13,7 @@ export class ListItemsTable extends Component {
                 {
                     this.props.todoList.items.map((todoItem)=>(
                         <ListItemCard 
+                            goItemScreen = {this.props.goItemScreen}
                             key={todoItem.key}
                             listItem={todoItem} 
                             // Pass down the todoList so that each list item
@@ -24,7 +25,7 @@ export class ListItemsTable extends Component {
                             />
                     ))
                 }
-                <div className="list_item_add_card">+</div>
+                <div className="list_item_add_card" onClick = {(e)=>this.props.goItemScreen()}>+</div>
 
             </div>
         )

@@ -13,6 +13,8 @@ export class ListScreen extends Component {
             name: this.props.todoList.name,
             todoList: this.props.todoList
         };
+        // Refresh the keys upon loading, this is needed for when a new element is added
+        this.refreshKeys();
     }
     handleOwnerChange(event){
         this.props.todoList.owner = event.target.value;
@@ -39,10 +41,7 @@ export class ListScreen extends Component {
         else
             return "";
     }
-
- // These methods will assume that the button is unclickable
-  // if the operation is invalid (like it can't move up).
-  // 10/7/19 1:12AM, can maybe put these further into the project with states of their own.
+  // Buttons where operations are invalid should be disabled but I'll add exceptions anyway
     moveUp = (key) =>{
         const todoListItems = this.props.todoList.items;
         if (key === 0){ // if it's the first element
@@ -82,7 +81,6 @@ export class ListScreen extends Component {
         return {todoList: this.props.todoList};
         }); // reload the state?
     }
-
     // Sets the keys of each item to it's position in the array
     refreshKeys(){
         const todoListItems = this.state.todoList.items;
@@ -121,6 +119,7 @@ export class ListScreen extends Component {
                                 moveUp = {this.moveUp}
                                 moveDown = {this.moveDown}
                                 deleteItem = {this.deleteItem}
+                                goItemScreen = {this.props.goItemScreen}
                                 />
             </div>
         )
