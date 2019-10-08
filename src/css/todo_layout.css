@@ -162,13 +162,14 @@ button:disabled{
 #item_heading {}
 #item_form_container {
   display: grid;
-  max-width:500px;
+  max-width: 400px;
   align-content: center;
   padding: 30px;
-  row-gap: 5ch;
+  row-gap: 3ch;
 }
 #item_description_prompt {}
-#item_description_textfield {}
+#item_description_textfield {
+}
 #item_assigned_to_prompt {}
 #item_assigned_to_textfield {}
 #item_due_date_prompt {}
@@ -193,6 +194,7 @@ button:disabled{
 }
 .item_input {
   grid-column: 2 / 4;
+  margin: auto;
 }
 
 .promptInputDiv{
