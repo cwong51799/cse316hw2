@@ -9,7 +9,9 @@ export class ListTrash extends Component {
         };
     }
     handleClick(){
-        this.setState({clicked: !this.props.clicked})
+        console.log("Trash can clicked!");
+        // Makes it so that any click will close the dialog, which is good.
+        this.setState({clicked: !this.state.clicked});
     }
     render() {
         console.log("ListTrash RENDER CALLED");
@@ -18,9 +20,9 @@ export class ListTrash extends Component {
                 <DeleteConfirmation deleteList = {this.props.deleteList} 
                                     todoList = {this.props.todoList}
                                     loadList = {this.props.loadList}
-                                    showDialog = {this.state.clicked}></DeleteConfirmation>
-                &#128465;
-            
+                                    showDialog = {this.state.clicked}>
+                                    </DeleteConfirmation>
+                                    &#128465;
             </div>
         )
     }

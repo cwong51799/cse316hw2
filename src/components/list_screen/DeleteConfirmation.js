@@ -4,22 +4,20 @@ export class DeleteConfirmation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showDialog : this.props.clicked // only load the dialog if it is clicked
+            reload: true
         };
     }
-    closeDialog(){
-        this.setState({showDialog: false});
-    }
+
     render() {
-        console.log("DeleteConfirmation Render called. Show dialog: " + this.state.showDialog);
-        if (this.state.showDialog === true){
+        console.log("DeleteConfirmation RENDER CALLED");
+        if (this.props.showDialog === true){
             console.log("Showing the Dialog!");
             return (
                 <div id = "delete_confirmation"> <div id="deleteTitle">Delete this List?</div>
                     <p id="msg1"><strong>Are you sure you want to delete this list?</strong></p>
                     <div id="delete_options"> 
                         <button id="delete_confirmed" className="buttons" onClick = {(e)=>this.props.deleteList(this.props.todoList.key)}> Yes</button> 
-                        <button id="delete_unconfirmed" className="buttons" onClick = {(e)=>this.closeDialog(this.props.todoList)}> No</button>
+                        <button id="delete_unconfirmed" className="buttons"> No</button>
                     </div>
                 <p id="msg2">This list will not be retrievable.</p>
                 </div>

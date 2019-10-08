@@ -87,14 +87,14 @@ export class ListScreen extends Component {
 
     render() {
         this.refreshKeys(this.props.todoList);
-        console.log("LIST SCREEN RENDER METHOD CALLED");
+        console.log("ListScreen RENDER CALLED");
         return (
             <div id="todo_list">
                 <ListHeading goHome={this.props.goHome} />
                 <ListTrash deleteList = {this.props.deleteList} 
                            todoList = {this.props.todoList}
                            loadList = {this.props.loadList}
-                           clicked = {false}/>
+                           />
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>
