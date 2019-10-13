@@ -16,7 +16,31 @@ export class ListScreen extends Component {
             jsTPS : this.props.jsTPS
         };
         this.jsTPS = this.props.jsTPS;
+        this.ctrlDown = false;
+        document.body.onkeydown = function(e) {
+            if (e.keyCode === 17 || e.keyCode === 91){
+                this.ctrlDown = true;
+            }
+            if (this.ctrlDown && e.keyCode === 90){
+                e.preventDefault();
+                var undoButton = document.getElementById("undo");
+                undoButton.click();
+            }
+            else if (this.ctrlDown && e.keyCode === 89){
+                e.preventDefault();
+                var redoButton = document.getElementById("redo");
+                redoButton.click();
+            }
+        }
+        document.body.onkeyup = function(e) {
+            if (e.keyCode == 17 || e.keyCode == 91) {
+              this.ctrlDown = false;
+            };
+        };
         // Refresh the keys upon loading, this is needed for when a new element
+    }
+    assignControls(){
+
     }
     handleOwnerChange(event){
         var transaction = new NameChange_Transaction(this.props.todoList,event.target.value, "owner");
@@ -112,6 +136,9 @@ export class ListScreen extends Component {
                     };
         });
     }
+    handleKeyPress(e){
+        console.log(e.keyCode);
+    }
     render() {
         this.refreshKeys(this.props.todoList);
         console.log("ListScreen RENDER CALLED");
@@ -122,8 +149,8 @@ export class ListScreen extends Component {
                            todoList = {this.props.todoList}
                            loadList = {this.props.loadList}
                            />
-                <button onClick={e=>this.undo()}> UNDO BUTTON </button>
-                <button onClick={e=>this.redo()}> REDO BUTTON </button>
+                <button id = "undo" onClick={e=>this.undo()} hidden> UNDO BUTTON </button>
+                <button id = "redo" onClick={e=>this.redo()} hidden> REDO BUTTON </button>
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>
