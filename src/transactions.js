@@ -46,7 +46,6 @@ class ListChange_Transaction{
         }
         else if (this.type == "delete") {// else its delete
             this.deletedItem = this.todoList.items[this.key];
-            console.log(this.deletedItem);
             this.todoList.items.splice(this.key,1); // remove the element
         }
     }
@@ -63,7 +62,6 @@ class ListChange_Transaction{
             this.todoList.items[this.key+1] = holder;
         }
         else if (this.type === "delete") {// else its delete
-            this.deletedItem = this.todoList.items[this.key];
             this.todoList.items.splice(this.key,0,this.deletedItem); // at the index, remove 0 elements, then insert the deleted item
         }
     }
