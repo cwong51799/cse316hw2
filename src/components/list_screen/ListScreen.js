@@ -3,7 +3,7 @@ import ListHeading from './ListHeading'
 import ListItemsTable from './ListItemsTable'
 import ListTrash from './ListTrash'
 import jsTPS from '../../jsTPS'
-import ListChange_Transaction from '../../transactions'
+import {ListChange_Transaction, NameChange_Transaction,ListItemEdit_Transaction} from '../../transactions'
 import PropTypes from 'prop-types';
 
 export class ListScreen extends Component {
@@ -20,12 +20,15 @@ export class ListScreen extends Component {
         // Refresh the keys upon loading, this is needed for when a new element
     }
     handleOwnerChange(event){
-        this.props.todoList.owner = event.target.value;
+        var transaction = new NameChange_Transaction(this.props.todoList,event.target.value, "owner");
+        this.jsTPS.addTransaction(transaction);
+        this.jsTPS.doTransaction();
         this.setState({owner: this.props.todoList.owner});
     }
     handleNameChange(event){
-        console.log(event.target.value);
-        this.props.todoList.name = event.target.value;
+        var transaction = new NameChange_Transaction(this.props.todoList,event.target.value, "name");
+        this.jsTPS.addTransaction(transaction);
+        this.jsTPS.doTransaction();
         this.setState({name: this.props.todoList.name});
     }
     getListName() {
@@ -62,20 +65,21 @@ export class ListScreen extends Component {
     moveDown = (key) =>{
         const todoListItems = this.props.todoList.items;
         if (key === todoListItems.length-1){ // if it's the last element
-        return;
+            return;
         }
         // Swap the item up.
-        const swapHolder = todoListItems[key];
-        todoListItems[key] = todoListItems[key+1];
-        todoListItems[key+1] = swapHolder;
+        var transaction = new ListChange_Transaction(this.props.todoList, key, "moveDown");
+        this.jsTPS.addTransaction(transaction);
+        this.jsTPS.doTransaction();
         this.setState(()=>{  // reload the state by refreshing the currentList
         console.log("setting state");
         return {todoList: this.props.todoList};
         }); // reload the state
     }
     deleteItem = (key) =>{
-        const todoListItems = this.props.todoList.items;
-        todoListItems.splice(key,1); // remove the element
+        var transaction = new ListChange_Transaction(this.props.todoList, key, "delete");
+        this.jsTPS.addTransaction(transaction);
+        this.jsTPS.doTransaction();
         this.setState(()=>{  // reload the state by refreshing the currentList
         console.log("setting state");
         return {todoList: this.props.todoList};
@@ -85,10 +89,31 @@ export class ListScreen extends Component {
     refreshKeys(todoList){
         const todoListItems = todoList.items;
         for (var i=0;i<todoListItems.length;i++){
-        todoListItems[i].key = i;
+            todoListItems[i].key = i;
         }
     }
-
+    undo(){
+        this.jsTPS.undoTransaction();
+        this.refreshKeys(this.props.todoList);
+        this.setState(()=>{  // reload the state by refreshing the currentList
+            console.log("setting state");
+            return {todoList: this.props.todoList,
+                    owner: this.props.todoList.owner,
+                    name: this.props.todoList.name,
+                    todoList: this.props.todoList,};
+        });
+    }
+    redo(){
+        this.jsTPS.doTransaction();
+        this.refreshKeys(this.props.todoList);
+        this.setState(()=>{  // reload the state by refreshing the currentList
+            console.log("setting state");
+            return {todoList: this.props.todoList,
+                    owner: this.props.todoList.owner,
+                    name: this.props.todoList.name,
+                    todoList: this.props.todoList,};
+        });
+    }
     render() {
         this.refreshKeys(this.props.todoList);
         console.log("ListScreen RENDER CALLED");
@@ -99,6 +124,8 @@ export class ListScreen extends Component {
                            todoList = {this.props.todoList}
                            loadList = {this.props.loadList}
                            />
+                <button onClick={e=>this.undo()}> UNDO BUTTON </button>
+                <button onClick={e=>this.redo()}> REDO BUTTON </button>
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>

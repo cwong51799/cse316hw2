@@ -49,7 +49,6 @@ export class ItemScreen extends Component {
     }
     submitItem(){
         // Officialize the changes
-        console.log(this.state.newItem);
         // If it's a new item
         if (this.state.newItem === true){
             var createdItem = {

@@ -12,7 +12,7 @@ class jsTPS{
     addTransaction(transaction){
         if ((this.mostRecentTransaction < 0) || (this.mostRecentTransaction < (this.transactions.length -1))){
             for (var i=this.transactions.length-1;i>this.mostRecentTransaction;i--){
-                this.transactions.remove(i);
+                this.transactions.splice(i,1);
             }
         }
         this.transactions.push(transaction);

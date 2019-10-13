@@ -1,17 +1,29 @@
 class NameChange_Transaction{
-    constructor(pointer, newName){
-        this.pointer = pointer;
-        this.oldName = pointer.value;
-        this.newName = newName;
+    constructor(todoList, newValue, type){
+        this.todoList = todoList;
+        this.oldOwner = todoList.owner;
+        this.oldName = todoList.name;
+        this.newValue = newValue;
+        this.type = type;
     }
     doTransaction(){
-         this.pointer.value = this.newName;
+        if (this.type === "owner"){
+            this.todoList.owner = this.newValue;
+        }
+        else if (this.type === "name"){
+            this.todoList.name = this.newValue;
+        }
     }
     undoTransaction(){
-        this.pointer.value = this.oldName;
+        if (this.type === "owner"){
+            this.todoList.owner = this.oldOwner;
+        }
+        else if (this.type === "name"){
+            this.todoList.name = this.oldName;
+        }
     }
     toString(){
-        return "Change name from " + this.oldName + " to " + this.newName;
+        return "NameChange Transaction";
     }
 }
 // Item will move in a direction Up or Down.
@@ -32,13 +44,28 @@ class ListChange_Transaction{
             this.todoList.items[this.key+1] = this.todoList.items[this.key];
             this.todoList.items[this.key] = holder;
         }
-        else{// else its delete
+        else if (this.type == "delete") {// else its delete
             this.deletedItem = this.todoList.items[this.key];
-
+            console.log(this.deletedItem);
+            this.todoList.items.splice(this.key,1); // remove the element
         }
     }
+    // Delete undo not working, something about overlapping keys.
     undoTransaction(){
-        this.todoList.items = this.oldArray;
+        if (this.type === "moveUp"){
+            var holder = this.todoList.items[this.key];
+            this.todoList.items[this.key] = this.todoList.items[this.key-1];
+            this.todoList.items[this.key-1] = holder;
+        }
+        else if (this.type === "moveDown"){
+            var holder = this.todoList.items[this.key];
+            this.todoList.items[this.key] = this.todoList.items[this.key+1];
+            this.todoList.items[this.key+1] = holder;
+        }
+        else if (this.type === "delete") {// else its delete
+            this.deletedItem = this.todoList.items[this.key];
+            this.todoList.items.splice(this.key,0,this.deletedItem); // at the index, remove 0 elements, then insert the deleted item
+        }
     }
     toString(){
         return "List change transaction";
@@ -63,4 +90,8 @@ class ListItemEdit_Transaction{
     }
 }
 
-export default ListChange_Transaction;
+export {
+    NameChange_Transaction,
+    ListChange_Transaction,
+    ListItemEdit_Transaction
+}
