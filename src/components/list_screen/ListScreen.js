@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import ListHeading from './ListHeading'
 import ListItemsTable from './ListItemsTable'
 import ListTrash from './ListTrash'
+import jsTPS from '../../jsTPS'
+import ListChange_Transaction from '../../transactions'
 import PropTypes from 'prop-types';
 
 export class ListScreen extends Component {
@@ -11,8 +13,10 @@ export class ListScreen extends Component {
         this.state = {
             owner: this.props.todoList.owner,
             name: this.props.todoList.name,
-            todoList: this.props.todoList
+            todoList: this.props.todoList,
+            jsTPS : new jsTPS()
         };
+        this.jsTPS = new jsTPS();
         // Refresh the keys upon loading, this is needed for when a new element
     }
     handleOwnerChange(event){
@@ -47,9 +51,9 @@ export class ListScreen extends Component {
         return;
         }
         // Swap the item up.
-        const swapHolder = todoListItems[key];
-        todoListItems[key] = todoListItems[key-1];
-        todoListItems[key-1] = swapHolder;
+        var transaction = new ListChange_Transaction(this.props.todoList, key, "moveUp");
+        this.jsTPS.addTransaction(transaction);
+        this.jsTPS.doTransaction();
         this.setState(()=>{  // reload the state by refreshing the currentList
         console.log("setting state");
         return {todoList: this.props.todoList};

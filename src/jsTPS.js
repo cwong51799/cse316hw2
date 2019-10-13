@@ -1,4 +1,3 @@
-import jsTPS_Transaction from "./jsTPS_Transaction";
 class jsTPS{
     transactions = [];
     mostRecentTransaction = -1;
@@ -11,25 +10,25 @@ class jsTPS{
         return this.performingUndo;
     }
     addTransaction(transaction){
-        if ((this.mostRecentTransaction < 0) || (this.mostRecentTransaction < (this.transactions.size() -1))){
-            for (var i=transactions.size()-1;i>this.mostRecentTransaction;i--){
+        if ((this.mostRecentTransaction < 0) || (this.mostRecentTransaction < (this.transactions.length -1))){
+            for (var i=this.transactions.length-1;i>this.mostRecentTransaction;i--){
                 this.transactions.remove(i);
             }
         }
         this.transactions.push(transaction);
-        doTransaction();
+        this.doTransaction();
     }
     doTransaction(){
-        if(hasTransactionToRedo()){
+        if(this.hasTransactionToRedo()){
             this.performingDo = true;
-            transaction = transactions.get[this.mostRecentTransaction+1];
+            var transaction = this.transactions[this.mostRecentTransaction+1];
             transaction.doTransaction();
             this.mostRecentTransaction++;
             this.performingDo = false;
         }
     }
     peekUndo(){
-        if (hasTransactionToUndo()){
+        if (this.hasTransactionToUndo()){
             return this.transactions[this.mostRecentTransaction];
         }
         else{
@@ -37,17 +36,17 @@ class jsTPS{
         }
     }
     peekDo(){
-        if (hasTransactionToRedo()){
-            return transactions[this.mostRecentTransaction+1];
+        if (this.hasTransactionToRedo()){
+            return this.transactions[this.mostRecentTransaction+1];
         }
         else{
             return null;
         }
     }
     undoTransaction(){
-        if (hasTransactionToUndo()){
+        if (this.hasTransactionToUndo()){
             this.performingUndo = true;
-            transaction = transactions[this.mostRecentTransaction];
+            var transaction = this.transactions[this.mostRecentTransaction];
             transaction.undoTransaction();
             this.mostRecentTransaction--;
             this.performingUndo = false;
@@ -58,7 +57,7 @@ class jsTPS{
         this.mostRecentTransaction = -1;
     }
     getSize(){
-        return this.transactions.size();
+        return this.transactions.length;
     }
     getRedoSize(){
         return (this.getSize() - this.mostRecentTransaction - 1);
@@ -70,16 +69,18 @@ class jsTPS{
         return this.mostRecentTransaction >= 0;
     }
     hasTransactionToRedo(){
-        return (this.mostRecentTransaction < (this.transactions.size()-1));
+        return (this.mostRecentTransaction < (this.transactions.length-1));
     }
     toString() {
-        text = "--Number of Transactions: " + transactions.size() + "\n";
-        text += "--Current Index on Stack: " + mostRecentTransaction + "\n";
+        var text = "--Number of Transactions: " + this.transactions.length + "\n";
+        text += "--Current Index on Stack: " + this.mostRecentTransaction + "\n";
         text += "--Current Transaction Stack:\n";
-        for (var i = 0; i <= mostRecentTransaction; i++) {
-            jT = transactions.get(i);
+        for (var i = 0; i <= this.mostRecentTransaction; i++) {
+            var jT = this.transactions.get(i);
             text += "----" + jT.toString() + "\n";
         }
         return text;
     }
 }
+
+export default jsTPS;
