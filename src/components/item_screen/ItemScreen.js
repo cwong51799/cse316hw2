@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { ListNewItem_Transaction } from '../../transactions';
+import { ListNewItem_Transaction, ListChangedItem_Transaction } from '../../transactions';
 
 export class ItemScreen extends Component {
     constructor(props) {
@@ -65,11 +65,8 @@ export class ItemScreen extends Component {
             this.props.jsTPS.doTransaction();
         }
         else{
-            var oldItem = this.props.todoItem;
-            this.props.todoItem.description = this.state.newDesc;
-            this.props.todoItem.assigned_to = this.state.newAssigned;
-            this.props.todoItem.due_date = this.state.newDate;
-            this.props.todoItem.completed = this.state.newCompleted;
+            this.props.jsTPS.addTransaction(new ListChangedItem_Transaction(this.props.todoList, this.props.todoItem,this.state.newDesc,this.state.newAssigned,this.state.newDate,this.state.newCompleted));
+            this.props.jsTPS.doTransaction();
         }
 
         this.props.loadList(this.props.todoList);
