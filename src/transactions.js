@@ -72,18 +72,47 @@ class ListChange_Transaction{
     }
 }
 
-class ListItemEdit_Transaction{
-    constructor(array, key, newItem){
-        this.array = array;
-        this.key = key;
-        this.oldItem = array[key];
-        this.newItem = newItem;
+class ListNewItem_Transaction{
+    constructor(todoList, oldArray, newArray){
+        this.todoList = todoList;
+        this.oldArray = oldArray;
+        this.newArray = newArray;
     }
     doTransaction(){
-        this.array[this.key] = this.newItem;
+        this.todoList.items = this.newArray;
     }
     undoTransaction(){
-        this.array[this.key] = this.oldItem;
+        this.todoList.items = this.oldArray;
+    }
+    toString(){
+        return "Item Edit Transaction";
+    }
+}
+
+class ListChangedItem_Transaction{
+    constructor(todoList, todoItem, newDesc, newAssigned, newDate, newCompleted){
+        this.todoList = todoList;
+        this.todoItem = todoItem;
+        this.newDesc = newDesc;
+        this.newAssigned = newAssigned;
+        this.newDate = newDate;
+        this.newCompleted = newCompleted;
+        this.oldDesc = todoItem.description;
+        this.oldAssigned = todoItem.assigned_to;
+        this.oldDate = todoItem.due_date;
+        this.oldCompleted = todoItem.completed;
+    }
+    doTransaction(){
+        this.todoItem.description = this.newDesc;
+        this.todoItem.assigned_to = this.newAssigned;
+        this.todoItem.due_date = this.newDate;
+        this.todoItem.completed = this.newCompleted;
+    }
+    undoTransaction(){
+        this.todoItem.description = this.oldDesc;
+        this.todoItem.assigned_to = this.oldAssigned;
+        this.todoItem.due_date = this.oldDate;
+        this.todoItem.completed = this.oldCompleted;
     }
     toString(){
         return "Item Edit Transaction";
@@ -93,5 +122,6 @@ class ListItemEdit_Transaction{
 export {
     NameChange_Transaction,
     ListChange_Transaction,
-    ListItemEdit_Transaction
+    ListNewItem_Transaction,
+    ListChangedItem_Transaction
 }

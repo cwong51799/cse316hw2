@@ -3,6 +3,7 @@ import testTodoListData from './TestTodoListData.json'
 import HomeScreen from './components/home_screen/HomeScreen'
 import ItemScreen from './components/item_screen/ItemScreen'
 import ListScreen from './components/list_screen/ListScreen'
+import jsTPS from './jsTPS'
 
 const AppScreen = {
   HOME_SCREEN: "HOME_SCREEN",
@@ -15,10 +16,13 @@ class App extends Component {
     currentScreen: AppScreen.HOME_SCREEN,
     todoLists: testTodoListData.todoLists,
     currentList: null,
-    currentItem: null
+    currentItem: null,
+    jsTPS: new jsTPS()
   }
 
+
   goHome = () => {
+    this.state.jsTPS.clearAllTransactions();
     this.setState({currentScreen: AppScreen.HOME_SCREEN});
     this.setState({currentList: null});
   }
@@ -62,12 +66,14 @@ class App extends Component {
           loadList = {this.loadList}
           deleteList = {this.deleteList}
           goItemScreen = {this.goItemScreen.bind(this)}
+          jsTPS = {this.state.jsTPS}
           />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen 
           loadList = {this.loadList}
           todoList = {this.state.currentList}
           todoItem = {this.state.currentItem}
+          jsTPS = {this.state.jsTPS}
           />;
       default:
         return <div>ERROR</div>;

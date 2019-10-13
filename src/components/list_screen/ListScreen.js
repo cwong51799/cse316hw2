@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ListHeading from './ListHeading'
 import ListItemsTable from './ListItemsTable'
 import ListTrash from './ListTrash'
-import jsTPS from '../../jsTPS'
 import {ListChange_Transaction, NameChange_Transaction,ListItemEdit_Transaction} from '../../transactions'
 import PropTypes from 'prop-types';
 
@@ -14,9 +13,9 @@ export class ListScreen extends Component {
             owner: this.props.todoList.owner,
             name: this.props.todoList.name,
             todoList: this.props.todoList,
-            jsTPS : new jsTPS()
+            jsTPS : this.props.jsTPS
         };
-        this.jsTPS = new jsTPS();
+        this.jsTPS = this.props.jsTPS;
         // Refresh the keys upon loading, this is needed for when a new element
     }
     handleOwnerChange(event){
@@ -49,7 +48,6 @@ export class ListScreen extends Component {
     }
   // Buttons where operations are invalid should be disabled but I'll add exceptions anyway
     moveUp = (key) =>{
-        const todoListItems = this.props.todoList.items;
         if (key === 0){ // if it's the first element
         return;
         }
@@ -99,8 +97,8 @@ export class ListScreen extends Component {
             console.log("setting state");
             return {todoList: this.props.todoList,
                     owner: this.props.todoList.owner,
-                    name: this.props.todoList.name,
-                    todoList: this.props.todoList,};
+                    name: this.props.todoList.name
+                    };
         });
     }
     redo(){
@@ -111,7 +109,7 @@ export class ListScreen extends Component {
             return {todoList: this.props.todoList,
                     owner: this.props.todoList.owner,
                     name: this.props.todoList.name,
-                    todoList: this.props.todoList,};
+                    };
         });
     }
     render() {
@@ -152,6 +150,7 @@ export class ListScreen extends Component {
                                 deleteItem = {this.deleteItem}
                                 goItemScreen = {this.props.goItemScreen}
                                 refreshKeys = {this.refreshKeys}
+                                jsTPS = {this.jsTPS}
                                 />
             </div>
         )

@@ -71,6 +71,7 @@ export class ListItemsTable extends Component {
                             moveUp = {this.props.moveUp}
                             moveDown = {this.props.moveDown}
                             deleteItem = {this.props.deleteItem}
+                            jsTPS = {this.jsTPS}
                             />
                     ))
                 }

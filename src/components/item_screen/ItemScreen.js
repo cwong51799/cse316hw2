@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { ListNewItem_Transaction } from '../../transactions';
 
 export class ItemScreen extends Component {
     constructor(props) {
@@ -51,6 +52,7 @@ export class ItemScreen extends Component {
         // Officialize the changes
         // If it's a new item
         if (this.state.newItem === true){
+            var oldArray = Array.from(this.props.todoList.items); // copy of original array
             var createdItem = {
                 description: this.state.newDesc,
                 assigned_to : this.state.newAssigned,
@@ -58,13 +60,18 @@ export class ItemScreen extends Component {
                 completed : this.state.newCompleted
             };
             this.props.todoList.items.push(createdItem);
+            var newArray = Array.from(this.props.todoList.items);
+            this.props.jsTPS.addTransaction(new ListNewItem_Transaction(this.props.todoList, oldArray, newArray));
+            this.props.jsTPS.doTransaction();
         }
         else{
+            var oldItem = this.props.todoItem;
             this.props.todoItem.description = this.state.newDesc;
             this.props.todoItem.assigned_to = this.state.newAssigned;
             this.props.todoItem.due_date = this.state.newDate;
             this.props.todoItem.completed = this.state.newCompleted;
         }
+
         this.props.loadList(this.props.todoList);
     }
 
